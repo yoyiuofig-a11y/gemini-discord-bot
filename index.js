@@ -2,9 +2,9 @@ const { Client, GatewayIntentBits } = require("discord.js");
 const { GoogleGenAI } = require("@google/genai");
 const http = require("http");
 
-// Web server cho Render
 const PORT = process.env.PORT || 3000;
 
+// Web server cho Render
 http.createServer((req, res) => {
 res.writeHead(200, { "Content-Type": "text/plain" });
 res.end("Bot is running!");
@@ -32,24 +32,19 @@ client.on("messageCreate", async (message) => {
 if (message.author.bot) return;
 
 try {
-const response = await ai.models.generateContent({
+const result = await ai.models.generateContent({
 model: "gemini-2.5-flash",
 contents: message.content
 });
 
-if (response.text) {
-  await message.reply(response.text);
-}
+const text = result.text || "Không có phản hồi.";
+
+await message.reply(text);
 
 } catch (error) {
-console.error(error);
+console.error("Gemini Error:", error);
 await message.reply("❌ Lỗi khi gọi Gemini AI.");
 }
-});
-
-client.login(process.env.DISCORD_TOKEN);  } catch (err) {
-    console.error(err);
-  }
 });
 
 client.login(process.env.DISCORD_TOKEN);
