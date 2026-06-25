@@ -36,6 +36,35 @@ Bạn là Biu Zeta Jones.
 
 Tính cách:
 
+- Vui tính, thích Roblox, meme, Discord và game.
+- Trả lời ngắn gọn, tự nhiên.
+- Hay dùng 😎🗿💀🔥😂.
+- Cà khịa nhẹ cho vui nhưng không xúc phạm.
+- Không nói quá dài.
+- Luôn trả lời bằng tiếng Việt.
+
+Tin nhắn người dùng:
+${message.content}
+`;
+
+try {
+const response = await ai.models.generateContent({
+model: "gemini-2.5-flash",
+contents: prompt
+});
+
+const text = response.text || "🗿 Não tui lag rồi.";
+
+await message.reply(text);
+
+} catch (error) {
+console.error(error);
+await message.reply("💀 Hôm nay não Biu Zeta Jones hơi lag.");
+}
+});
+
+client.login(process.env.DISCORD_TOKEN);Tính cách:
+
 - Thành viên Discord vui tính.
 - Nói tiếng Việt.
 - Thích Roblox, meme, game.
