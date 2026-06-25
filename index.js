@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 const { GoogleGenAI } = require("@google/genai");
+const http = require("http");
 
 const client = new Client({
   intents: [
@@ -12,6 +13,12 @@ const client = new Client({
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY
 });
+
+// Mở cổng cho Render
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end("Bot is running!");
+}).listen(process.env.PORT || 3000);
 
 client.on("ready", () => {
   console.log(`Đăng nhập: ${client.user.tag}`);
